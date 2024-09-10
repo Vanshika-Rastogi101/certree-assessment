@@ -5,9 +5,22 @@
   </div>
 </template>
 
-<script setup>
+<script>
 import UserSearch from './components/UserSearch.vue'
 import UserProfileCard from './components/UserProfileCard.vue'
+
+export default{
+  components:{
+    UserSearch,
+    UserProfileCard
+  },
+  methods:{
+    togglePosts(isPostVisible) {
+      
+      console.log(`Posts are ${isPostVisible ? 'shown' : 'hidden'}`);
+    },
+  }
+}
 </script>
 
 <style scoped>

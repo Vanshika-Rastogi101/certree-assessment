@@ -18,7 +18,7 @@ export default{
         ...mapActions('users',['fetchUserData']),
         seachUsers(){
             if (this.seachedUser.trim() !== '') {
-                const userId = 8;
+                const userId = 1;
                 this.fetchUserData(userId);
             }
         }

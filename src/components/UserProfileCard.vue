@@ -1,4 +1,5 @@
 <template>
+<div>
     <div v-if="loading">
         Loading...
     </div>
@@ -8,11 +9,14 @@
         <h2> User Name : {{ userDetails.username }} </h2>
         <h2> Email : {{ userDetails.email }} </h2>
         <h2> Address : {{ userDetails?.address?.street }} {{ userDetails?.address?.suite }} {{ userDetails?.address?.city }} {{ userDetails?.address?.zipcode }}</h2>
-        <div v-for="(post,index) in userPosts.data" :key="index" class="userPosts">
-            <UserPost :post="post"/>
-        </div>
         <button @click="togglePosts">Toggle Posts</button>
+        <div v-if="isPostVisible">
+        <slot name="post" v-for="(post,index) in userPosts" :key="index" class="userPosts" :post="post">
+            <UserPost :post="post"/>
+        </slot>
+        </div>
     </div>
+</div>
 </template>
 
 <script>
@@ -47,7 +51,7 @@ export default {
     },
 
     watch: {
-    searchTerm() {
+    seachedUser() {
       if (this.seachedUser.trim() !== '') {
         const userId = 1;
         this.fetchUserData(userId);

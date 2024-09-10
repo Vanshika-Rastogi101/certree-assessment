@@ -31,7 +31,7 @@ export default createStore({
                         const userDetails = await axios.get(`https://jsonplaceholder.typicode.com/users/${userId}`);
                         const userPosts = await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`);
                         commit('USER_DATA',userDetails.data);
-                        commit('USER_POSTS',userPosts);
+                        commit('USER_POSTS',userPosts.data);
                     }
                     catch(error){
                         console.log("error",error)
