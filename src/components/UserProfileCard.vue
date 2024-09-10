@@ -36,9 +36,8 @@ export default {
         ...mapGetters('users',['userDetails', 'userPosts','loading']),
 
         filteredData(){
-            console.log("userPosts",this.userPosts);
             return this.userPosts.filter ((post,index) => {
-                post.toLowerCase().includes(this.seachedUser.toLowerCase())
+                post.title.toLowerCase().includes(this.seachedUser.toLowerCase())
             })
         }
     },
