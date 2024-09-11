@@ -5,10 +5,12 @@
     </div>
     <div v-else>
         <h1>User Profile Card Details</h1>
-        <h2> Name : {{ userDetails.name }} </h2>
-        <h2> User Name : {{ userDetails.username }} </h2>
-        <h2> Email : {{ userDetails.email }} </h2>
-        <h2> Address : {{ userDetails?.address?.street }} {{ userDetails?.address?.suite }} {{ userDetails?.address?.city }} {{ userDetails?.address?.zipcode }}</h2>
+        <div v-for="(user,index) in users" :key="index">
+            <h2> Name : {{ user.name }} </h2>
+            <h2> User Name : {{ user.username }} </h2>
+            <h2> Email : {{ user.email }} </h2>
+            <h2> Address : {{ user?.address?.street }} {{ user?.address?.suite }} {{ user?.address?.city }} {{ user?.address?.zipcode }}</h2>
+        </div>
         <button @click="togglePosts">Toggle Posts</button>
         <div v-if="isPostVisible">
         <slot name="post" v-for="(post,index) in userPosts" :key="index" class="userPosts" :post="post">
@@ -33,7 +35,7 @@ export default {
     },
 
     computed:{
-        ...mapGetters('users',['userDetails', 'userPosts','loading']),
+        ...mapGetters('users',['userDetails', 'userPosts','loading','users']),
 
         filteredData(){
             return this.userPosts.filter ((post,index) => {

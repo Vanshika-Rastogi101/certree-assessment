@@ -8,7 +8,8 @@ export default createStore({
             state:{
                 userDetails: {},
                 userPosts: [],
-                loading:false
+                loading:false,
+                users:{}
             },
 
             mutations:{
@@ -21,6 +22,10 @@ export default createStore({
                 },
                 SET_LOADING(state,isLoading){
                     state.loading = isLoading;
+                },
+                SET_USERS(state,users){
+                    console.log("users",users)
+                    state.users = users
                 }
             },
 
@@ -28,8 +33,8 @@ export default createStore({
                 async fetchUserData({ commit }, userId){
                     commit('SET_LOADING', true);
                     try{
-                        const userDetails = await axios.get(`https://jsonplaceholder.typicode.com/users/${userId}`);
-                        const userPosts = await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`);
+                        const userDetails = await axios.get('https://jsonplaceholder.typicode.com/users');
+                        const userPosts = await axios.get('https://jsonplaceholder.typicode.com/posts');
                         commit('USER_DATA',userDetails.data);
                         commit('USER_POSTS',userPosts.data);
                     }
@@ -45,7 +50,8 @@ export default createStore({
             getters:{
                 userDetails: (state) => state.userDetails,
                 userPosts: (state) => state.userPosts,
-                loading: (state) => state.loading
+                loading: (state) => state.loading,
+                users: (state) => state.users
             }
         }
     }
