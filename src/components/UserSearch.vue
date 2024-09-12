@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="search">
         <h1>Search User</h1>
         <input type="text" placeholder = "Search Users By Name" @change="seachUsers" v-model="seachedUser"/>
     </div>
@@ -40,5 +40,12 @@ export default{
     }
 }
 </script>
-<style>
+<style scoped>
+
+.search{
+    text-align: center;
+}
+input{
+    min-width:10%;
+}
 </style>

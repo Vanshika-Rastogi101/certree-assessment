@@ -1,15 +1,16 @@
 <template>
 <div>
     <div v-if="loading">
-        Loading...
+        <h1>Loading...</h1>
     </div>
     <div v-else>
         <h1>User Profile Card Details</h1>
-        <div v-for="(user,index) in users" :key="index">
-            <h2 class="name"> Name : {{ user.name }} </h2>
+        <hr/>
+        <div v-for="(user,index) in users" :key="index" class="user-details">
+            <h2> Name : {{ user.name }} </h2>
             <h2> Email : {{ user.email }} </h2>
             <h2> Address : {{ user?.address?.street }} {{ user?.address?.suite }} {{ user?.address?.city }} {{ user?.address?.zipcode }}</h2>
-            <button @click="togglePosts(user.id)">Toggle Posts</button>
+            <button class="btn-toggle-posts" @click="togglePosts(user.id)">Toggle Posts</button>
         </div>
         <div v-if="isPostVisible" class="posts">
         <slot name="post" v-for="(post,index) in userPosts" :key="index" class="userPosts" :post="post">
@@ -75,8 +76,18 @@ export default {
         grid-template-columns: 1fr 1fr 1fr;
     }
 
-    .name{
-        color:#636363
+    .user-details{
+        text-align:center;
+    }
+
+    h1{
+        text-align:center;
+    }
+
+    .btn-toggle-posts{
+        background:#C5C6C7;
+        font-size:20px;
+        padding:10px;
     }
 
     @media screen and (max-width: 915px) {
