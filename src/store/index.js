@@ -24,7 +24,6 @@ export default createStore({
                     state.loading = isLoading;
                 },
                 SET_USERS(state,users){
-                    console.log("users",users)
                     state.users = users
                 }
             },

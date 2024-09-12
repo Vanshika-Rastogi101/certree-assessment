@@ -23,12 +23,9 @@ export default{
                 const userId = 1;
                 this.fetchUserData();
                 setTimeout(()=>{
-                console.log("userDetails",this.userDetails);
                 this.users = this.userDetails.filter((user,index)=>{
-                    console.log("seachedUser",this.seachedUser);
                     return user.name.toLowerCase().includes(this.seachedUser.toLowerCase())
                 })
-                console.log("users",this.users);
                 this.SET_USERS(this.users);
             },1000)
             }

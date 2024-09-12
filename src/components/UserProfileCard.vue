@@ -49,7 +49,6 @@ export default {
         togglePosts(id){
             this.isPostVisible = !this.isPostVisible;
             let posts = this.fetchUserDataById(id);
-            console.log("posts",posts,this.userPosts);
             this.$emit('toggle-posts',this.isPostVisible);
         }
     },

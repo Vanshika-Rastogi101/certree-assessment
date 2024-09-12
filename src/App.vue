@@ -16,7 +16,6 @@ export default{
   },
   methods:{
     togglePosts(isPostVisible) {
-      
       console.log(`Posts are ${isPostVisible ? 'shown' : 'hidden'}`);
     },
   }
