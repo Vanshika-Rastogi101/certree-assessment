@@ -1,7 +1,7 @@
 <template> 
     <div class="post">
         <h1 class="title">{{ post.title }}</h1>
-        <span>{{ post.body }}</span>
+        <span class="text">{{ post.body }}</span>
     </div>
 </template>
 
@@ -25,5 +25,14 @@ export default{
     }
     .title{
         text-transform:capitalize;
+        text-align: center;
     }
+    .text{
+        font-size:20px;
+        display: block;
+        text-align: center;
+        color:#636363;
+    }
+
+    
 </style>

@@ -6,13 +6,12 @@
     <div v-else>
         <h1>User Profile Card Details</h1>
         <div v-for="(user,index) in users" :key="index">
-            <h2> Name : {{ user.name }} </h2>
-            <h2> User Name : {{ user.username }} </h2>
+            <h2 class="name"> Name : {{ user.name }} </h2>
             <h2> Email : {{ user.email }} </h2>
             <h2> Address : {{ user?.address?.street }} {{ user?.address?.suite }} {{ user?.address?.city }} {{ user?.address?.zipcode }}</h2>
             <button @click="togglePosts(user.id)">Toggle Posts</button>
         </div>
-        <div v-if="isPostVisible">
+        <div v-if="isPostVisible" class="posts">
         <slot name="post" v-for="(post,index) in userPosts" :key="index" class="userPosts" :post="post">
             <UserPost :post="post"/>
         </slot>
@@ -70,5 +69,20 @@ export default {
         display:grid;
         grid-template-columns:1fr 1fr 1fr;
         grid-gap:20px;
+    }
+    .posts{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .name{
+        color:#636363
+    }
+
+    @media screen and (max-width: 915px) {
+        .posts{
+            display:grid;
+            grid-template-columns: 1fr;
+        }
     }
 </style>
