@@ -17,13 +17,12 @@ export default{
 
     methods : {
         ...mapActions('users',['fetchUserData']),
-        ...mapMutations('users',['SET_USERS']),
+        ...mapMutations('users',['SET_USERS','USER_DATA']),
         seachUsers(){
             if (this.seachedUser.trim() !== '') {
                 const userId = 1;
                 this.fetchUserData();
-            }
-            setTimeout(()=>{
+                setTimeout(()=>{
                 console.log("userDetails",this.userDetails);
                 this.users = this.userDetails.filter((user,index)=>{
                     console.log("seachedUser",this.seachedUser);
@@ -32,6 +31,10 @@ export default{
                 console.log("users",this.users);
                 this.SET_USERS(this.users);
             },1000)
+            }
+            else{
+                this.USER_DATA({})
+            }
         }
     },
 

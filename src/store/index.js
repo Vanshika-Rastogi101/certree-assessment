@@ -48,9 +48,8 @@ export default createStore({
                 async fetchUserDataById({ commit }, userId){
                     commit('SET_LOADING', true);
                     try{
-                        const userDetails = await axios.get(`https://jsonplaceholder.typicode.com/users/${userId}`);
                         const userPosts = await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`);
-                        commit('USER_DATA',userDetails.data);
+                        
                         commit('USER_POSTS',userPosts.data);
                     }
                     catch(error){
