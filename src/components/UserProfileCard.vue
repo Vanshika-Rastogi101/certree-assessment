@@ -10,8 +10,8 @@
             <h2> User Name : {{ user.username }} </h2>
             <h2> Email : {{ user.email }} </h2>
             <h2> Address : {{ user?.address?.street }} {{ user?.address?.suite }} {{ user?.address?.city }} {{ user?.address?.zipcode }}</h2>
+            <button @click="togglePosts(user.id)">Toggle Posts</button>
         </div>
-        <button @click="togglePosts">Toggle Posts</button>
         <div v-if="isPostVisible">
         <slot name="post" v-for="(post,index) in userPosts" :key="index" class="userPosts" :post="post">
             <UserPost :post="post"/>
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import UserPost from './UserPost.vue';
 export default {
     components:{
@@ -45,8 +45,11 @@ export default {
     },
 
     methods: {
-        togglePosts(){
+    ...mapActions('users',['fetchUserDataById']),
+        togglePosts(id){
             this.isPostVisible = !this.isPostVisible;
+            let posts = this.fetchUserDataById(id);
+            console.log("posts",posts,this.userPosts);
             this.$emit('toggle-posts',this.isPostVisible);
         }
     },
