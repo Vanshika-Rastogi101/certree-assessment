@@ -1,7 +1,7 @@
 <template>
     <div class="search">
         <h1>Search User</h1>
-        <input type="text" placeholder = "Search Users By Name" @change="seachUsers" v-model="seachedUser"/>
+        <input type="text" placeholder = "Search Users By Name" @input="seachUsers" v-model="seachedUser"/>
     </div>
 </template>
 
@@ -23,11 +23,11 @@ export default{
                 const userId = 1;
                 this.fetchUserData();
                 setTimeout(()=>{
-                this.users = this.userDetails.filter((user,index)=>{
-                    return user.name.toLowerCase().includes(this.seachedUser.toLowerCase())
-                })
-                this.SET_USERS(this.users);
-            },1000)
+                    this.users = this.userDetails.filter((user,index)=>{
+                        return user.name.toLowerCase().includes(this.seachedUser.toLowerCase())
+                    })
+                    this.SET_USERS(this.users);
+                },1000)
             }
             else{
                 this.USER_DATA({})

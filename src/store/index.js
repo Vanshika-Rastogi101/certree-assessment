@@ -15,6 +15,7 @@ export default createStore({
             mutations:{
                 USER_DATA(state,details){
                     state.userDetails = details;
+                    state.users = details
                 },
 
                 USER_POSTS(state,posts){
