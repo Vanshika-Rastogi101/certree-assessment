@@ -12,9 +12,9 @@
             <h2> Address : {{ user?.address?.street }} {{ user?.address?.suite }} {{ user?.address?.city }} {{ user?.address?.zipcode }}</h2>
             <button class="btn-toggle-posts" @click="togglePosts(user.id)">Toggle Posts</button>
         </div>
-        <div v-if="isPostVisible" class="posts">
+        <div class="posts">
         <slot name="post" v-for="(post,index) in userPosts" :key="index" class="userPosts" :post="post">
-            <UserPost :post="post"/>
+            <UserPost :post="post" v-if="post.flag"/>
         </slot>
         </div>
     </div>
@@ -47,8 +47,17 @@ export default {
     methods: {
     ...mapActions('users',['fetchUserDataById']),
         togglePosts(id){
-            this.isPostVisible = !this.isPostVisible;
-            let posts = this.fetchUserDataById(id);
+            this.fetchUserDataById(id);
+            setTimeout(()=>{
+                console.log("xuserPosts",this.userPosts);
+                this.userPosts.map((post,index)=>{
+                    if(post.userId == id){
+                        post.flag = !post.flag;
+                    }else{
+                        post.flag = false;   
+                    }
+                })
+            },1000)
             this.$emit('toggle-posts',this.isPostVisible);
         }
     },
