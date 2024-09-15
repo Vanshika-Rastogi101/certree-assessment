@@ -11,12 +11,12 @@
             <h2> Email : {{ user.email }} </h2>
             <h2> Address : {{ user?.address?.street }} {{ user?.address?.suite }} {{ user?.address?.city }} {{ user?.address?.zipcode }}</h2>
             <button class="btn-toggle-posts" @click="togglePosts(user.id)">Toggle Posts</button>
-        </div>
-        <div class="posts">
-        <slot name="post" v-for="(post,index) in userPosts" :key="index" class="userPosts" :post="post">
-            <UserPost :post="post" v-if="post.flag"/>
-        </slot>
-        </div>
+            <div class="posts">
+                <slot name="post" v-for="(post,index) in getUserPosts(user.id)" :key="index" class="userPosts" :post="post" v-if="isPostVisible(user.id)">
+                    <UserPost :post="post"/>
+                </slot>
+            </div>
+     </div>
     </div>
 </div>
 </template>
@@ -30,46 +30,37 @@ export default {
     },
     data(){
         return{
-            isPostVisible : false
+            postVisibility: {}, 
         }
     },
 
     computed:{
         ...mapGetters('users',['userDetails', 'userPosts','loading','users']),
-
-        filteredData(){
-            return this.userPosts.filter ((post,index) => {
-                post.title.toLowerCase().includes(this.seachedUser.toLowerCase())
-            })
-        }
     },
 
     methods: {
     ...mapActions('users',['fetchUserDataById']),
         togglePosts(id){
-            this.fetchUserDataById(id);
-            setTimeout(()=>{
-                console.log("xuserPosts",this.userPosts);
-                this.userPosts.map((post,index)=>{
-                    if(post.userId == id){
-                        post.flag = !post.flag;
-                    }else{
-                        post.flag = false;   
-                    }
-                })
-            },1000)
-            this.$emit('toggle-posts',this.isPostVisible);
+            this.postVisibility = {
+                ...this.postVisibility,
+                [id]: !this.postVisibility[id]
+            };
+        },
+
+        isPostVisible(userId) {
+            return !!this.postVisibility[userId];
+        },
+
+        getUserPosts(userId) {
+            return this.userPosts.filter(post => post.userId === userId);
         }
     },
 
-    watch: {
-    seachedUser() {
-      if (this.seachedUser.trim() !== '') {
-        const userId = 1;
-        this.fetchUserData(userId);
-      }
+    mounted(){
+        this.fetchUserDataById();
+        setTimeout(()=>{
+        },1000)
     }
-  }
 }
 </script>
 
